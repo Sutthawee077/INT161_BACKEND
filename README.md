@@ -48,24 +48,26 @@ INT161_BACKEND/
 │       ├── 07-centralized-error-handling.md# ข้อ 7: Error Handler กลาง + MySQL Error Mapping
 │       └── README.md                      # สารบัญคู่มือรายข้อ
 │
-├── 📂 src/                                # 💻 [โค้ดระบบหลัก Clean 3-Layer Architecture]
-│   ├── src.zip                            # 📦 ไฟล์ Zip เฉพาะโค้ดโฟลเดอร์ src
-│   ├── configs/
-│   │   └── db-config.js                   # ตั้งค่า MySQL Connection Pool (mysql2/promise)
-│   ├── repositories/                      # จัดการคำสั่ง SQL ดิบ (Pure SQL Queries)
-│   │   ├── product-repo.js                # CRUD & Relationship JOIN ของสินค้า
-│   │   └── brand-repo.js                  # Query รายการแบรนด์ & existsById
-│   ├── services/                          # Business Logic, Existence Check, Uniqueness
-│   │   ├── product-service.js             # ตรวจสอบกฎทางธุรกิจสินค้า & โยน Custom Error
-│   │   └── brand-service.js               # ตรรกะของแบรนด์
-│   ├── routes/                            # Controllers, HTTP Status Codes & Headers
-│   │   ├── product-route.js               # GET, POST (201+Location), PUT, DELETE (204)
-│   │   └── brand-route.js                 # GET /brands, 405 Method Not Allowed
-│   ├── middlewares/                       # Validation, Transport & Error Handling
-│   │   ├── validate-product.js            # ตรวจสอบชนิดข้อมูลเคร่งครัด & สแกนทศนิยมใน Integer
-│   │   ├── transport-middleware.js        # ตรวจ Content-Type (415) & Accept (406)
-│   │   └── error-handler.js               # Centralized Error Handler (400, 404, 409, 500)
-│   └── app.js                             # จุดเริ่มต้น Express Server & Middleware Pipeline
+├── 📂 int261-sample-exam/                 # 💻 [โค้ดระบบข้อสอบตัวอย่าง Clean 3-Layer Architecture]
+│   ├── int261-sample-exam.zip             # 📦 ไฟล์ Zip เฉพาะโค้ดชุดนี้
+│   ├── README.md                          # 📖 เอกสารสรุปโปรเจกต์ข้อสอบตัวอย่าง
+│   └── src/                               # 📁 โค้ดระบบหลัก
+│       ├── configs/
+│       │   └── db-config.js               # ตั้งค่า MySQL Connection Pool (mysql2/promise)
+│       ├── repositories/                  # จัดการคำสั่ง SQL ดิบ (Pure SQL Queries)
+│       │   ├── product-repo.js            # CRUD & Relationship JOIN ของสินค้า
+│       │   └── brand-repo.js              # Query รายการแบรนด์ & existsById
+│       ├── services/                      # Business Logic, Existence Check, Uniqueness
+│       │   ├── product-service.js         # ตรวจสอบกฎทางธุรกิจสินค้า & โยน Custom Error
+│       │   └── brand-service.js           # ตรรกะของแบรนด์
+│       ├── routes/                        # Controllers, HTTP Status Codes & Headers
+│       │   ├── product-route.js           # GET, POST (201+Location), PUT, DELETE (204)
+│       │   └── brand-route.js             # GET /brands, 405 Method Not Allowed
+│       ├── middlewares/                   # Validation, Transport & Error Handling
+│       │   ├── validate-product.js        # ตรวจสอบชนิดข้อมูลเคร่งครัด & สแกนทศนิยมใน Integer
+│       │   ├── transport-middleware.js    # ตรวจ Content-Type (415) & Accept (406)
+│       │   └── error-handler.js           # Centralized Error Handler (400, 404, 409, 500)
+│       └── app.js                         # จุดเริ่มต้น Express Server & Middleware Pipeline
 │
 ├── 📂 database/                           # 🗄️ [ไฟล์จัดการฐานข้อมูล MySQL]
 │   ├── database.zip                       # 📦 ไฟล์ Zip เฉพาะสคริปต์ฐานข้อมูล
@@ -128,7 +130,7 @@ node database/init_db.js
 
 ### 3. รันเซิร์ฟเวอร์
 ```bash
-node src/app.js
+node int261-sample-exam/src/app.js
 ```
 เซิร์ฟเวอร์จะเปิดทำงานที่ `http://localhost:8080` พร้อมรับคำขอทันที!
 
