@@ -1,6 +1,6 @@
 # 🚀 INT161 Backend Development - Complete Exam Package
 
-คลังโค้ด เอกสารคู่มือ สูตรโกงข้อสอบ และแม่แบบระบบ RESTful API สำหรับการสอบปฏิบัติวิชา **INT161 Backend Development** พัฒนาด้วย **Node.js (Express.js, ES Modules) + MySQL (`mysql2/promise`)** ภายใต้สถาปัตยกรรม **Clean 3-Layer Architecture**
+คลังโค้ด เอกสารคู่มือ แม่แบบระบบ RESTful API สำหรับการสอบปฏิบัติวิชา **INT161 Backend Development** พัฒนาด้วย **Node.js (Express.js, ES Modules) + MySQL (`mysql2/promise`)** ภายใต้สถาปัตยกรรม **Clean 3-Layer Architecture**
 
 ---
 
