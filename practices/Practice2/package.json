@@ -1,0 +1,17 @@
+{
+  "name": "express-practice-2",
+  "version": "1.0.0",
+  "description": "INT161 Practice 2 - RESTful API CRUD & Centralized Exception Handling",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js",
+    "test": "node test/api-test.js"
+  },
+  "private": true,
+  "dependencies": {
+    "express": "^5.2.1",
+    "mysql2": "^3.24.3"
+  }
+}

@@ -1,0 +1,88 @@
+-- DROP TABLE IF EXISTS products;
+-- DROP TABLE IF EXISTS brands;
+--
+-- CREATE TABLE brands (
+--     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--     name VARCHAR(60) NOT NULL UNIQUE,
+--     country VARCHAR(60) NOT NULL
+-- );
+--
+-- CREATE TABLE products (
+--     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--     sku VARCHAR(30) CHARACTER SET ascii COLLATE ascii_bin NOT NULL UNIQUE,
+--     name VARCHAR(100) NOT NULL,
+--     brand_id BIGINT NOT NULL,
+--     price DECIMAL(10,2) NOT NULL,
+--     stock INT NOT NULL,
+--     ram_gb INT NOT NULL,
+--     storage_gb INT NOT NULL,
+--     color VARCHAR(40) NOT NULL,
+--     description VARCHAR(500) NULL,
+--     active BOOLEAN NOT NULL,
+--     CONSTRAINT fk_products_brand FOREIGN KEY (brand_id) REFERENCES brands(id) ON DELETE RESTRICT,
+--     CHECK (price BETWEEN 0.01 AND 99999999.99),
+--     CHECK (stock BETWEEN 0 AND 100000),
+--     CHECK (ram_gb IN (2,4,6,8,12,16,24)),
+--     CHECK (storage_gb IN (32,64,128,256,512,1024)),
+--     CHECK (active IN (0,1))
+-- );
+
+INSERT INTO brands (name,country) VALUES
+('Apple','USA'),
+('Samsung','South Korea'),
+('Xiaomi','China'),
+('OPPO','China'),
+('vivo','China'),
+('Google','USA'),
+('Nothing','United Kingdom'),
+('ExamBrand','Thailand');
+
+INSERT INTO products (sku,name,brand_id,price,stock,ram_gb,storage_gb,color,description,active) VALUES
+('MOB-001','Apple Demo 01',1,0.01,0,2,32,'Black','โทรศัพท์ตัวอย่างลำดับ 1',1),
+('MOB-002','Samsung Demo 02',2,99999999.99,100000,6,64,'White','โทรศัพท์ตัวอย่างลำดับ 2',1),
+('MOB-003','Xiaomi Demo 03',3,8490.0,21,8,128,'Blue','โทรศัพท์ตัวอย่างลำดับ 3',1),
+('MOB-004','OPPO Demo 04',4,9990.25,28,12,256,'Green','โทรศัพท์ตัวอย่างลำดับ 4',0),
+('MOB-005','vivo Demo 05',5,11490.5,35,16,512,'สีทอง',NULL,1),
+('MOB-006','Google Demo 06',6,12990.0,1,24,1024,'Silver','โทรศัพท์ตัวอย่างลำดับ 6',1),
+('MOB-007','Nothing Demo 07',7,14490.25,8,4,32,'Black','',1),
+('MOB-008','Apple Demo 08',1,15990.5,15,6,64,'White','โทรศัพท์ตัวอย่างลำดับ 8',0),
+('MOB-009','Samsung Demo 09',2,17490.0,22,8,128,'Blue','โทรศัพท์ตัวอย่างลำดับ 9',1),
+('MOB-010','Xiaomi Demo 10',3,18990.25,29,12,256,'Green',NULL,1),
+('MOB-011','OPPO Demo 11',4,20490.5,36,16,512,'สีทอง','โทรศัพท์ตัวอย่างลำดับ 11',1),
+('MOB-012','vivo Demo 12',5,3990.0,2,24,1024,'Silver','โทรศัพท์ตัวอย่างลำดับ 12',0),
+('MOB-013','Google Demo 13',6,5490.25,9,4,32,'Black','โทรศัพท์ตัวอย่างลำดับ 13',1),
+('MOB-014','Nothing Demo 14',7,6990.5,16,6,64,'White','',1),
+('MOB-015','Apple Demo 15',1,8490.0,23,8,128,'Blue',NULL,1),
+('MOB-016','Samsung Demo 16',2,9990.25,30,12,256,'Green','โทรศัพท์ตัวอย่างลำดับ 16',0),
+('MOB-017','Xiaomi Demo 17',3,11490.5,37,16,512,'สีทอง','โทรศัพท์ตัวอย่างลำดับ 17',1),
+('MOB-018','OPPO Demo 18',4,12990.0,3,24,1024,'Silver','โทรศัพท์ตัวอย่างลำดับ 18',1),
+('MOB-019','vivo Demo 19',5,14490.25,10,4,32,'Black','โทรศัพท์ตัวอย่างลำดับ 19',1),
+('MOB-020','Google Demo 20',6,15990.5,17,6,64,'White',NULL,0),
+('MOB-021','Nothing Demo 21',7,17490.0,24,8,128,'Blue','',1),
+('MOB-022','Apple Demo 22',1,18990.25,31,12,256,'Green','โทรศัพท์ตัวอย่างลำดับ 22',1),
+('MOB-023','Samsung Demo 23',2,20490.5,38,16,512,'สีทอง','โทรศัพท์ตัวอย่างลำดับ 23',1),
+('MOB-024','Xiaomi Demo 24',3,3990.0,4,24,1024,'Silver','โทรศัพท์ตัวอย่างลำดับ 24',0),
+('MOB-025','OPPO Demo 25',4,5490.25,11,4,32,'Black',NULL,1),
+('MOB-026','vivo Demo 26',5,6990.5,18,6,64,'White','โทรศัพท์ตัวอย่างลำดับ 26',1),
+('MOB-027','Google Demo 27',6,8490.0,25,8,128,'Blue','โทรศัพท์ตัวอย่างลำดับ 27',1),
+('MOB-028','Nothing Demo 28',7,9990.25,32,12,256,'Green','',0),
+('MOB-029','Apple Demo 29',1,11490.5,39,16,512,'สีทอง','โทรศัพท์ตัวอย่างลำดับ 29',1),
+('MOB-030','Samsung Demo 30',2,12990.0,5,24,1024,'Silver',NULL,1),
+('MOB-031','Xiaomi Demo 31',3,14490.25,12,4,32,'Black','โทรศัพท์ตัวอย่างลำดับ 31',1),
+('MOB-032','OPPO Demo 32',4,15990.5,19,6,64,'White','โทรศัพท์ตัวอย่างลำดับ 32',0),
+('MOB-033','vivo Demo 33',5,17490.0,26,8,128,'Blue','โทรศัพท์ตัวอย่างลำดับ 33',1),
+('MOB-034','Google Demo 34',6,18990.25,33,12,256,'Green','โทรศัพท์ตัวอย่างลำดับ 34',1),
+('MOB-035','Nothing Demo 35',7,20490.5,40,16,512,'สีทอง',NULL,1),
+('MOB-036','Apple Demo 36',1,3990.0,6,24,1024,'Silver','โทรศัพท์ตัวอย่างลำดับ 36',0),
+('MOB-037','Samsung Demo 37',2,5490.25,13,4,32,'Black','โทรศัพท์ตัวอย่างลำดับ 37',1),
+('MOB-038','Xiaomi Demo 38',3,6990.5,20,6,64,'White','โทรศัพท์ตัวอย่างลำดับ 38',1),
+('MOB-039','OPPO Demo 39',4,8490.0,27,8,128,'Blue','โทรศัพท์ตัวอย่างลำดับ 39',1),
+('MOB-040','vivo Demo 40',5,9990.25,34,12,256,'Green',NULL,0),
+('MOB-041','Google Demo 41',6,11490.5,0,16,512,'สีทอง','โทรศัพท์ตัวอย่างลำดับ 41',1),
+('MOB-042','Nothing Demo 42',7,12990.0,7,24,1024,'Silver','',1),
+('MOB-043','Apple Demo 43',1,14490.25,14,4,32,'Black','โทรศัพท์ตัวอย่างลำดับ 43',1),
+('MOB-044','Samsung Demo 44',2,15990.5,21,6,64,'White','โทรศัพท์ตัวอย่างลำดับ 44',0),
+('MOB-045','Xiaomi Demo 45',3,17490.0,28,8,128,'Blue',NULL,1),
+('MOB-046','OPPO Demo 46',4,18990.25,35,12,256,'Green','โทรศัพท์ตัวอย่างลำดับ 46',1),
+('MOB-047','vivo Demo 47',5,20490.5,1,16,512,'สีทอง','โทรศัพท์ตัวอย่างลำดับ 47',1),
+('MOB-048','Google Demo 48',6,3990.0,8,24,1024,'Silver','โทรศัพท์ตัวอย่างลำดับ 48',0);

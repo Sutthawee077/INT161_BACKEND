@@ -1,0 +1,295 @@
+{
+  "info": {
+    "name": "INT161 Practice 2 - Classicmodels API",
+    "description": "Collection for testing 5 REST API CRUD endpoints and Centralized Exception Handling",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api/68130500077",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. GET Office by ID - Success (200)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/offices/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["offices", "1"]
+        }
+      }
+    },
+    {
+      "name": "1. GET Office by ID - Not Found (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/offices/99",
+          "host": ["{{baseUrl}}"],
+          "path": ["offices", "99"]
+        }
+      }
+    },
+    {
+      "name": "2. POST Product Line - Success (201)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productLine\": \"Electric Vehicles\",\n  \"textDescription\": \"Line of modern high-performance electric cars\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/productlines",
+          "host": ["{{baseUrl}}"],
+          "path": ["productlines"]
+        }
+      }
+    },
+    {
+      "name": "2. POST Product Line - Validation Error (400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productLine\": \"\",\n  \"textDescription\": \"Empty product line\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/productlines",
+          "host": ["{{baseUrl}}"],
+          "path": ["productlines"]
+        }
+      }
+    },
+    {
+      "name": "2. POST Product Line - Duplicate Key (409)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productLine\": \"Electric Vehicles\",\n  \"textDescription\": \"Duplicate\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/productlines",
+          "host": ["{{baseUrl}}"],
+          "path": ["productlines"]
+        }
+      }
+    },
+    {
+      "name": "3. PUT Employee - Success (200)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstName\": \"Diane\",\n  \"lastName\": \"Murphy\",\n  \"email\": \"dmurphy@classicmodelcars.com\",\n  \"officeCode\": \"1\",\n  \"jobTitle\": \"President\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/employees/1002",
+          "host": ["{{baseUrl}}"],
+          "path": ["employees", "1002"]
+        }
+      }
+    },
+    {
+      "name": "3. PUT Employee - Not Found (404)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john.doe@classicmodelcars.com\",\n  \"officeCode\": \"1\",\n  \"jobTitle\": \"Sales\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/employees/9999",
+          "host": ["{{baseUrl}}"],
+          "path": ["employees", "9999"]
+        }
+      }
+    },
+    {
+      "name": "3. PUT Employee - Invalid Email (400)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstName\": \"Diane\",\n  \"lastName\": \"Murphy\",\n  \"email\": \"invalid-email-format\",\n  \"officeCode\": \"1\",\n  \"jobTitle\": \"President\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/employees/1002",
+          "host": ["{{baseUrl}}"],
+          "path": ["employees", "1002"]
+        }
+      }
+    },
+    {
+      "name": "3. PUT Employee - Foreign Key Not Found (400)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstName\": \"Diane\",\n  \"lastName\": \"Murphy\",\n  \"email\": \"dmurphy@classicmodelcars.com\",\n  \"officeCode\": \"9999\",\n  \"jobTitle\": \"President\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/employees/1002",
+          "host": ["{{baseUrl}}"],
+          "path": ["employees", "1002"]
+        }
+      }
+    },
+    {
+      "name": "4. DELETE Customer - Resource In Use (409)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/customers/103",
+          "host": ["{{baseUrl}}"],
+          "path": ["customers", "103"]
+        }
+      }
+    },
+    {
+      "name": "4. DELETE Customer - Not Found (404)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/customers/99999",
+          "host": ["{{baseUrl}}"],
+          "path": ["customers", "99999"]
+        }
+      }
+    },
+    {
+      "name": "5. POST Customer Payment - Success (201)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"checkNumber\": \"HQ336338\",\n  \"paymentDate\": \"2026-09-18\",\n  \"amount\": 2500.50\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/customers/103/payments",
+          "host": ["{{baseUrl}}"],
+          "path": ["customers", "103", "payments"]
+        }
+      }
+    },
+    {
+      "name": "5. POST Customer Payment - Customer Not Found (404)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"checkNumber\": \"HQ336338\",\n  \"paymentDate\": \"2026-09-18\",\n  \"amount\": 2500.50\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/customers/99999/payments",
+          "host": ["{{baseUrl}}"],
+          "path": ["customers", "99999", "payments"]
+        }
+      }
+    },
+    {
+      "name": "5. POST Customer Payment - Invalid Amount (400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"checkNumber\": \"HQ336338\",\n  \"paymentDate\": \"2026-09-18\",\n  \"amount\": -10\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/customers/103/payments",
+          "host": ["{{baseUrl}}"],
+          "path": ["customers", "103", "payments"]
+        }
+      }
+    },
+    {
+      "name": "5. POST Customer Payment - Duplicate Composite Key (409)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"checkNumber\": \"HQ336338\",\n  \"paymentDate\": \"2026-09-18\",\n  \"amount\": 2500.50\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/customers/103/payments",
+          "host": ["{{baseUrl}}"],
+          "path": ["customers", "103", "payments"]
+        }
+      }
+    }
+  ]
+}
