@@ -1,0 +1,206 @@
+### ==============================================================================
+### 🧪 INT161 Backend Exam - VS Code REST Client Test Script (requests.http)
+### ==============================================================================
+### วิธีใช้งาน:
+### 1. ติดตั้ง Extension "REST Client" (โดย Huachao Mao) ใน VS Code
+### 2. เปิดไฟล์นี้ขึ้นมา จะมีปุ่ม "Send Request" ขึ้นอยู่เหนือแต่ละ Request
+### 3. คลิก "Send Request" เพื่อทดสอบและดูผลลัพธ์ในหน้าต่างด้านขวาได้ทันที!
+### ==============================================================================
+
+@baseUrl = http://localhost:8080/api/v1
+@contentType = application/json
+@accept = application/json
+
+### ------------------------------------------------------------------------------
+### 🏷️ 1. Brands Endpoints (ดึงรายการแบรนด์ และดักจับ Method Not Allowed)
+### ------------------------------------------------------------------------------
+
+### 1.1 ดึงรายการแบรนด์ทั้งหมด (GET /brands -> 200 OK)
+GET {{baseUrl}}/brands
+Accept: {{accept}}
+
+### 1.2 ทดสอบส่ง POST ไปที่ /brands (POST /brands -> 405 Method Not Allowed)
+POST {{baseUrl}}/brands
+Accept: {{accept}}
+Content-Type: {{contentType}}
+
+{
+  "name": "New Brand"
+}
+
+
+### ------------------------------------------------------------------------------
+### 📱 2. Products List & Query Filter (ข้อ 2: ดึงสินค้าทั้งหมด / กรองตามแบรนด์)
+### ------------------------------------------------------------------------------
+
+### 2.1 ดึงสินค้าทั้งหมด (GET /products -> 200 OK)
+GET {{baseUrl}}/products
+Accept: {{accept}}
+
+### 2.2 ดึงสินค้าเฉพาะแบรนด์ ID 1 (Apple) (GET /products?brandId=1 -> 200 OK)
+GET {{baseUrl}}/products?brandId=1
+Accept: {{accept}}
+
+### 2.3 ดึงสินค้าเฉพาะแบรนด์ ID 2 (Samsung) (GET /products?brandId=2 -> 200 OK)
+GET {{baseUrl}}/products?brandId=2
+Accept: {{accept}}
+
+### 2.4 ดึงสินค้าของแบรนด์ที่ไม่มีอยู่จริง (GET /products?brandId=999 -> 200 OK ได้อาเรย์ว่าง [])
+GET {{baseUrl}}/products?brandId=999
+Accept: {{accept}}
+
+
+### ------------------------------------------------------------------------------
+### 🔍 3. Get Product by ID & Error Traps (ข้อ 3: ดึงสินค้าตาม ID และดักจับ 404 / 400)
+### ------------------------------------------------------------------------------
+
+### 3.1 ดึงสินค้า ID 1 ที่มีอยู่จริง (GET /products/1 -> 200 OK)
+GET {{baseUrl}}/products/1
+Accept: {{accept}}
+
+### 3.2 ดึงสินค้า ID 99999 ที่ไม่มีในระบบ (GET /products/99999 -> 404 Not Found)
+GET {{baseUrl}}/products/99999
+Accept: {{accept}}
+
+### 3.3 ดักจับ ID ที่เป็นตัวอักษร (GET /products/abc -> 400 Bad Request)
+GET {{baseUrl}}/products/abc
+Accept: {{accept}}
+
+### 3.4 ดักจับ ID ติดลบ (GET /products/-5 -> 400 Bad Request)
+GET {{baseUrl}}/products/-5
+Accept: {{accept}}
+
+### 3.5 ดักจับการส่ง Query String ปนมาที่ ID Endpoint (GET /products/1?sort=name -> 400 Bad Request)
+GET {{baseUrl}}/products/1?sort=name
+Accept: {{accept}}
+
+
+### ------------------------------------------------------------------------------
+### ➕ 4. Create Product (ข้อ 4: สร้างสินค้าใหม่ + ตรวจสอบข้อมูล + 201 Created + 409)
+### ------------------------------------------------------------------------------
+
+### 4.1 สร้างสินค้าใหม่สำเร็จ (POST /products -> 201 Created พร้อม Header "Location: /api/v1/products/:id")
+POST {{baseUrl}}/products
+Accept: {{accept}}
+Content-Type: {{contentType}}
+
+{
+  "sku": "TEST-IPHONE-16",
+  "name": "iPhone 16 Pro Max 256GB",
+  "brandId": 1,
+  "price": 48900.00,
+  "stock": 15,
+  "ramGb": 8,
+  "storageGb": 256,
+  "color": "Desert Titanium",
+  "description": "Brand new sealed product with 1-year official warranty",
+  "active": true
+}
+
+### 4.2 สร้างสินค้าด้วย SKU ที่ซ้ำกับที่มีอยู่แล้ว (POST /products -> 409 Conflict)
+POST {{baseUrl}}/products
+Accept: {{accept}}
+Content-Type: {{contentType}}
+
+{
+  "sku": "TEST-IPHONE-16",
+  "name": "iPhone 16 Duplicate",
+  "brandId": 1,
+  "price": 48900.00,
+  "stock": 5
+}
+
+### 4.3 ส่งฟิลด์ผิดกฎ - มีทศนิยมในฟิลด์ Integer เช่น stock = 10.5 (POST -> 400 INVALID_REQUEST)
+POST {{baseUrl}}/products
+Accept: {{accept}}
+Content-Type: {{contentType}}
+
+{
+  "sku": "INVALID-DECIMAL",
+  "name": "Invalid Decimal Stock Phone",
+  "brandId": 1,
+  "price": 19900.00,
+  "stock": 10.5
+}
+
+### 4.4 ส่งฟิลด์แปลกปลอมที่ไม่อนุญาต (POST -> 400 INVALID_REQUEST)
+POST {{baseUrl}}/products
+Accept: {{accept}}
+Content-Type: {{contentType}}
+
+{
+  "sku": "UNKNOWN-FIELD",
+  "name": "Unknown Field Phone",
+  "brandId": 1,
+  "price": 15000.00,
+  "hackerField": "malicious payload"
+}
+
+
+### ------------------------------------------------------------------------------
+### ✏️ 5. Update Product (ข้อ 5: อัปเดต PUT แทนที่ข้อมูลเดิม + 200 OK + 404 / 409)
+### ------------------------------------------------------------------------------
+
+### 5.1 อัปเดตสินค้า ID 1 สำเร็จ (PUT /products/1 -> 200 OK)
+PUT {{baseUrl}}/products/1
+Accept: {{accept}}
+Content-Type: {{contentType}}
+
+{
+  "sku": "IPHONE-15-PRO-256",
+  "name": "iPhone 15 Pro Natural Titanium (Updated)",
+  "brandId": 1,
+  "price": 41900.00,
+  "stock": 25,
+  "ramGb": 8,
+  "storageGb": 256,
+  "color": "Natural Titanium",
+  "description": "Updated stock and special discounted price",
+  "active": true
+}
+
+### 5.2 อัปเดตสินค้าที่ไม่มีอยู่จริง (PUT /products/99999 -> 404 Not Found)
+PUT {{baseUrl}}/products/99999
+Accept: {{accept}}
+Content-Type: {{contentType}}
+
+{
+  "sku": "NON-EXISTENT-SKU",
+  "name": "Ghost Product",
+  "brandId": 1,
+  "price": 9999.00,
+  "stock": 10
+}
+
+
+### ------------------------------------------------------------------------------
+### 🗑️ 6. Delete Product (ข้อ 6: ลบสินค้า + 204 No Content + 404 เมื่อลบซ้ำ)
+### ------------------------------------------------------------------------------
+
+### 6.1 ลบสินค้า ID 5 สำเร็จ (DELETE /products/5 -> 204 No Content *ต้องไม่มี body*)
+DELETE {{baseUrl}}/products/5
+Accept: {{accept}}
+
+### 6.2 ลบซ้ำสินค้าเดิมที่เพิ่งลบไป (DELETE /products/5 -> 404 Not Found)
+DELETE {{baseUrl}}/products/5
+Accept: {{accept}}
+
+### 6.3 ดักจับการส่ง Query String ใน DELETE (DELETE /products/5?force=true -> 400 Bad Request)
+DELETE {{baseUrl}}/products/5?force=true
+Accept: {{accept}}
+
+
+### ------------------------------------------------------------------------------
+### 🛡️ 7. Transport & Content Negotiation (ข้อ 7: ดักจับ 415 และ 406)
+### ------------------------------------------------------------------------------
+
+### 7.1 ส่ง Accept Header ที่ไม่ใช่ application/json (GET /products -> 406 Not Acceptable)
+GET {{baseUrl}}/products
+Accept: text/html
+
+### 7.2 ส่ง Content-Type ที่ไม่ใช่ application/json (POST /products -> 415 Unsupported Media Type)
+POST {{baseUrl}}/products
+Accept: {{accept}}
+Content-Type: text/plain
+
+{ "raw": "plain text body" }

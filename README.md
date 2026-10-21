@@ -28,6 +28,10 @@ INT161_BACKEND/
 ├── INT161_SOURCE_CODES_ONLY.zip           # 📦 ไฟล์ Zip รวมเฉพาะโฟลเดอร์โค้ดทั้งหมด (เบามาก ~98KB)
 │
 ├── 📂 docs/                               # 📚 [คลังเอกสาร & คู่มือสอบทั้งหมด]
+│   ├── EMERGENCY_TROUBLESHOOTING.md       # 🚨 คู่มือแก้ Error ยอดฮิตเวลาลนในห้องสอบ (10 วินาทีจบ)
+│   ├── API_TESTING_GUIDE.md               # 🧪 คู่มือใช้งานชุดทดสอบ API และตาราง 18 Test Cases
+│   ├── requests.http                      # ⚡ สคริปต์ทดสอบใน VS Code (REST Client) ยิงได้ทันที
+│   ├── exam_test.postman_collection.json  # 📬 Postman Collection นำเข้าแล้วพร้อมยิงเทสทันที
 │   ├── SQL_REPOSITORY_CHEATSHEET.md       # 🗄️ รวม 14 แม่แบบ SQL เขียน Repository ได้ทันที
 │   ├── EXAM_CHEATSHEET.md                 # ⚡ สรุปสูตรลัดและ 8 กับดักข้อสอบที่ห้ามพลาด
 │   ├── exam_spec_th.md                    # 📋 รายละเอียดข้อกำหนดข้อสอบ 100 คะแนนเต็ม
@@ -132,6 +136,10 @@ node src/app.js
 
 | เอกสารคู่มือ | หัวข้อสำคัญ | ลิงก์ |
 |---|---|:---:|
+| **Emergency Troubleshooting** | 🚨 สรุปวิธีแก้ 10 อาการ Error ยอดฮิตเวลาลนในห้องสอบ แก้ได้ทันทีใน 10 วินาที | [📖 เปิดอ่าน](docs/EMERGENCY_TROUBLESHOOTING.md) |
+| **API Testing Guide** | 🧪 คู่มือการยิงทดสอบ API ผ่าน VS Code REST Client (`.http`) และ Postman (18 เคส) | [📖 เปิดอ่าน](docs/API_TESTING_GUIDE.md) |
+| **VS Code REST Script** | ⚡ สคริปต์ยิงทดสอบใน VS Code คลิกเดียวส่ง Request เช็ค 200, 201, 204, 400, 404, 406, 409, 415 | [⚡ เปิดไฟล์](docs/requests.http) |
+| **Postman Collection** | 📬 ไฟล์ Collection พร้อม Import เข้า Postman ได้ทันที ครบ 7 หมวดหมู่ | [📬 โหลดไฟล์](docs/exam_test.postman_collection.json) |
 | **SQL Repository Cheat Sheet** | รวม 14 แม่แบบ SQL: CRUD, Pagination, COUNT, JOIN, Transaction และ Generic Template | [📖 เปิดอ่าน](docs/SQL_REPOSITORY_CHEATSHEET.md) |
 | **Exam Cheat Sheet** | สรุปเทียบข้อสอบ Style 1 (Student ID) vs Style 2 (REST API) และ 8 กับดักคะแนน | [📖 เปิดอ่าน](docs/EXAM_CHEATSHEET.md) |
 | **Question-by-Question Guide** | คู่มือเจาะลึก 7 ข้อของข้อสอบ อธิบายการทำงานทีละบรรทัด จุดตรวจ และตัวอย่างโค้ด | [📖 เปิดอ่าน](docs/examples-by-question/README.md) |

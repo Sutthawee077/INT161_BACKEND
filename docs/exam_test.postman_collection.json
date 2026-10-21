@@ -1,0 +1,367 @@
+{
+  "info": {
+    "_postman_id": "b75ee584-36cc-4780-99b2-ea5ac80ff1c0",
+    "name": "INT161 Backend Exam Test Collection",
+    "description": "ชุดทดสอบ API สำหรับวิชา INT161 Backend Development ครบถ้วนทุกข้อ (200, 201+Location, 204, 400, 404, 405, 406, 409, 415)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api/v1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Brands",
+      "item": [
+        {
+          "name": "1.1 Get All Brands (200 OK)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/brands",
+              "host": ["{{baseUrl}}"],
+              "path": ["brands"]
+            }
+          }
+        },
+        {
+          "name": "1.2 Post Brand Not Allowed (405)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\": \"Forbidden Brand\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/brands",
+              "host": ["{{baseUrl}}"],
+              "path": ["brands"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Products - List & Filter",
+      "item": [
+        {
+          "name": "2.1 Get All Products (200 OK)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "2.2 Filter by Brand ID 1 (200 OK)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products?brandId=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"],
+              "query": [
+                { "key": "brandId", "value": "1" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "2.3 Filter by Non-Existent Brand (200 OK Empty)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products?brandId=999",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"],
+              "query": [
+                { "key": "brandId", "value": "999" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Products - Get by ID & Traps",
+      "item": [
+        {
+          "name": "3.1 Get Existing Product ID 1 (200 OK)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "1"]
+            }
+          }
+        },
+        {
+          "name": "3.2 Get Non-Existent Product (404 Not Found)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/99999",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "99999"]
+            }
+          }
+        },
+        {
+          "name": "3.3 Get with String ID (400 Bad Request)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/abc",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "abc"]
+            }
+          }
+        },
+        {
+          "name": "3.4 Get with Query String on ID (400 Bad Request)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/1?sort=name",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "1"],
+              "query": [
+                { "key": "sort", "value": "name" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Products - Create & Validation",
+      "item": [
+        {
+          "name": "4.1 Create Product Success (201 Created + Location)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"POSTMAN-TEST-100\",\n  \"name\": \"Postman Test Phone 100\",\n  \"brandId\": 1,\n  \"price\": 29900.00,\n  \"stock\": 10,\n  \"ramGb\": 8,\n  \"storageGb\": 256,\n  \"color\": \"Midnight Black\",\n  \"description\": \"Created via Postman Collection test\",\n  \"active\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "4.2 Create Duplicate SKU (409 Conflict)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"POSTMAN-TEST-100\",\n  \"name\": \"Duplicate SKU Phone\",\n  \"brandId\": 1,\n  \"price\": 29900.00,\n  \"stock\": 5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "4.3 Decimal in Integer Field (400 INVALID_REQUEST)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"INVALID-DECIMAL-1\",\n  \"name\": \"Decimal Stock Phone\",\n  \"brandId\": 1,\n  \"price\": 19900.00,\n  \"stock\": 10.5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "4.4 Unknown Field (400 INVALID_REQUEST)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"UNKNOWN-FIELD-1\",\n  \"name\": \"Unknown Field Phone\",\n  \"brandId\": 1,\n  \"price\": 19900.00,\n  \"unknownKey\": \"forbidden\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Products - Update PUT",
+      "item": [
+        {
+          "name": "5.1 Update Product Success (200 OK)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"IPHONE-15-PRO-256\",\n  \"name\": \"iPhone 15 Pro Natural Titanium (Postman Update)\",\n  \"brandId\": 1,\n  \"price\": 39900.00,\n  \"stock\": 20,\n  \"ramGb\": 8,\n  \"storageGb\": 256,\n  \"color\": \"Natural Titanium\",\n  \"description\": \"Price dropped during exam\",\n  \"active\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "1"]
+            }
+          }
+        },
+        {
+          "name": "5.2 Update Non-Existent Product (404 Not Found)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"NON-EXIST-999\",\n  \"name\": \"Ghost Phone\",\n  \"brandId\": 1,\n  \"price\": 10000.00,\n  \"stock\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products/99999",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "99999"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Products - Delete",
+      "item": [
+        {
+          "name": "6.1 Delete Product Success (204 No Content)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/4",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "4"]
+            }
+          }
+        },
+        {
+          "name": "6.2 Repeated Delete (404 Not Found)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/4",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "4"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Content Negotiation (415 & 406)",
+      "item": [
+        {
+          "name": "7.1 Reject Non-JSON Accept (406 Not Acceptable)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "text/html" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "7.2 Reject Non-JSON Content-Type (415 Unsupported Media Type)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "text/plain" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "plain text payload"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
