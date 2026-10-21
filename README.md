@@ -28,6 +28,8 @@ INT161_BACKEND/
 ├── INT161_SOURCE_CODES_ONLY.zip           # 📦 ไฟล์ Zip รวมเฉพาะโฟลเดอร์โค้ดทั้งหมด (เบามาก ~98KB)
 │
 ├── 📂 docs/                               # 📚 [คลังเอกสาร & คู่มือสอบทั้งหมด]
+│   ├── INT161-Summary.md                  # 📝 สรุปเนื้อหาเลกเชอร์ 6 สัปดาห์ ครบทุกบท โดยแทน (Markdown)
+│   ├── INT161-Summary.pdf                 # 📑 สรุปเนื้อหาเลกเชอร์ 6 สัปดาห์ ฉบับ PDF พร้อมอ่าน/พิมพ์
 │   ├── EMERGENCY_TROUBLESHOOTING.md       # 🚨 คู่มือแก้ Error ยอดฮิตเวลาลนในห้องสอบ (10 วินาทีจบ)
 │   ├── API_TESTING_GUIDE.md               # 🧪 คู่มือใช้งานชุดทดสอบ API และตาราง 18 Test Cases
 │   ├── requests.http                      # ⚡ สคริปต์ทดสอบใน VS Code (REST Client) ยิงได้ทันที
@@ -136,6 +138,7 @@ node src/app.js
 
 | เอกสารคู่มือ | หัวข้อสำคัญ | ลิงก์ |
 |---|---|:---:|
+| **INT161 Summary (6 Weeks)** | 📝 สรุปเนื้อหาเลกเชอร์ 6 สัปดาห์ ครบทุกบท โดยแทน (มีทั้ง .md และ .pdf) | [📖 เปิดอ่าน](docs/INT161-Summary.md) / [📑 โหลด PDF](docs/INT161-Summary.pdf) |
 | **Emergency Troubleshooting** | 🚨 สรุปวิธีแก้ 10 อาการ Error ยอดฮิตเวลาลนในห้องสอบ แก้ได้ทันทีใน 10 วินาที | [📖 เปิดอ่าน](docs/EMERGENCY_TROUBLESHOOTING.md) |
 | **API Testing Guide** | 🧪 คู่มือการยิงทดสอบ API ผ่าน VS Code REST Client (`.http`) และ Postman (18 เคส) | [📖 เปิดอ่าน](docs/API_TESTING_GUIDE.md) |
 | **VS Code REST Script** | ⚡ สคริปต์ยิงทดสอบใน VS Code คลิกเดียวส่ง Request เช็ค 200, 201, 204, 400, 404, 406, 409, 415 | [⚡ เปิดไฟล์](docs/requests.http) |
